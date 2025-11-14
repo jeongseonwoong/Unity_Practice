@@ -7,6 +7,6 @@ import lombok.*;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class DocumentEventPayload implements EventPayload {
+public class MoveEventPayload implements EventPayload {
     Operation operation;
 }
