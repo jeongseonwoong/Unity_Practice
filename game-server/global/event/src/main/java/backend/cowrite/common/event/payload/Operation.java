@@ -1,12 +1,9 @@
 package backend.cowrite.common.event.payload;
 
-import com.fasterxml.jackson.annotation.JsonSubTypes;
-import com.fasterxml.jackson.annotation.JsonTypeInfo;
-
-@JsonTypeInfo(use = JsonTypeInfo.Id.NAME, property = "type")
-@JsonSubTypes({
-        @JsonSubTypes.Type(value = DeleteOperation.class, name = "DELETE"),
-        @JsonSubTypes.Type(value = InsertOperation.class, name = "INSERT")
-})
-public interface Operation {
+public class Operation {
+    OperationType type = OperationType.MOVE;
+    Long playerId;
+    Double x;
+    Double y;
+    Double z;
 }
