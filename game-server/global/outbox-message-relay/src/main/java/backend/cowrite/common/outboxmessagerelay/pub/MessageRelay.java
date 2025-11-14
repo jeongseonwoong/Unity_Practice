@@ -41,7 +41,7 @@ public class MessageRelay {
         try {
             messageRelayKafkaTemplate.send(
                     outbox.getEventType().getTopic(),
-                    outbox.getDocumentId().toString(),
+                    outbox.getRoomId().toString(),
                     outbox.getPayload()
             ).get(1, TimeUnit.SECONDS);
             outboxRepository.delete(outbox);
