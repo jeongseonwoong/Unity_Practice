@@ -1,6 +1,6 @@
 package backend.cowrite.common.event;
 
-import backend.cowrite.common.event.payload.DocumentEventPayload;
+import backend.cowrite.common.event.payload.moveEventPayload;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -10,12 +10,12 @@ import lombok.extern.slf4j.Slf4j;
 @RequiredArgsConstructor
 public enum EventType {
 
-    UPDATE(DocumentEventPayload.class, Topic.UPDATE);
+    INPUT(moveEventPayload.class, Topic.UPDATE);
 
     private final Class<? extends EventPayload> payloadClass;
     private final String topic;
 
     public static class Topic {
-        public static final String UPDATE = "content-update";
+        public static final String UPDATE = "user-typing";
     }
     }

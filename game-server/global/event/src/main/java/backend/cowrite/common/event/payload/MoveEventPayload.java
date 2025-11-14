@@ -8,7 +8,5 @@ import lombok.*;
 @NoArgsConstructor
 @AllArgsConstructor
 public class DocumentEventPayload implements EventPayload {
-    private Long version;
-    private Long operationId;
     Operation operation;
 }
