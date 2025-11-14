@@ -23,14 +23,14 @@ public class Outbox {
     private EventType eventType;
     private String payload;
     private LocalDateTime createdAt;
-    private Long documentId;
+    private Long roomId;
 
-    public static Outbox create(Long outboxId, EventType eventType, String payload, Long documentId) {
+    public static Outbox create(Long outboxId, EventType eventType, String payload, Long roomId) {
         Outbox outbox = new Outbox();
         outbox.outboxId = outboxId;
         outbox.eventType = eventType;
         outbox.payload = payload;
-        outbox.documentId = documentId;
+        outbox.roomId = roomId;
         outbox.createdAt = LocalDateTime.now();
         return outbox;
     }
