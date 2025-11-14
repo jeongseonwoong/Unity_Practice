@@ -12,13 +12,13 @@ import org.springframework.stereotype.Controller;
 @Controller
 @RequiredArgsConstructor
 @Slf4j
-public class ReadingDocumentController {
+public class MoveCharacterController {
 
     private final MoveUpdatePublisher documentUpdatePublisher;
 
-    @MessageMapping("/{documentId}")
-    public void editDocument(@DestinationVariable Long documentId, @Payload MoveEventPayload moveEventPayload) {
-        documentUpdatePublisher.updateDocument(documentId, moveEventPayload);
+    @MessageMapping("/{roomId}")
+    public void move(@DestinationVariable Long roomId, @Payload MoveEventPayload moveEventPayload) {
+        documentUpdatePublisher.updateDocument(roomId, moveEventPayload);
     }
 
 }
