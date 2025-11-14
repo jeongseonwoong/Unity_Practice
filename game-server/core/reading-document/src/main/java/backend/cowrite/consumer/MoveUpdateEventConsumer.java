@@ -4,7 +4,6 @@ import backend.cowrite.common.event.Event;
 import backend.cowrite.common.event.EventPayload;
 import backend.cowrite.common.event.EventType;
 import backend.cowrite.service.MoveUpdateService;
-import backend.cowrite.service.dto.EditedResult;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.kafka.clients.consumer.ConsumerRecord;
@@ -19,7 +18,7 @@ import static backend.cowrite.config.WebsocketConfig.ClientSubscribeRoute;
 @Slf4j
 @RequiredArgsConstructor
 public class MoveUpdateEventConsumer {
-    private final MoveUpdateService documentUpdateService;
+    private final MoveUpdateService moveUpdateService;
     private final SimpMessagingTemplate messagingTemplate;
 
 
@@ -28,15 +27,15 @@ public class MoveUpdateEventConsumer {
             containerFactory = "kafkaListenerContainerFactory"
     )
     public void listen(ConsumerRecord<String, String> outbox, Acknowledgment ack) {
-        String stringDocumentId = outbox.key();
-        String stringEvent = outbox.value();
-        log.info("[MoveUpdateEventConsumer.listen()] documentId = {}, message = {}", stringDocumentId, stringEvent);
-        Long documentId = Long.valueOf(stringDocumentId);
-        Event<EventPayload> event = Event.fromJson(stringEvent);
+        String outboxRoomId = outbox.key();
+        String outboxEvent = outbox.value();
+        log.info("[MoveUpdateEventConsumer.listen()] roomId = {}, message = {}", outboxRoomId, outboxEvent);
+
+        Event<EventPayload> event = Event.fromJson(outboxEvent);
         if (event != null) {
-            EditedResult editedResult = documentUpdateService.handleEvent(documentId, event);
-            String destination = clientSubscribeRoute(stringDocumentId);
-            messagingTemplate.convertAndSend(destination,editedResult);
+            moveUpdateService.handleEvent(Long.valueOf(outboxRoomId), event);
+            String destination = clientSubscribeRoute(outboxRoomId);
+            messagingTemplate.convertAndSend(destination, outboxEvent);
         }
         ack.acknowledge();
     }
