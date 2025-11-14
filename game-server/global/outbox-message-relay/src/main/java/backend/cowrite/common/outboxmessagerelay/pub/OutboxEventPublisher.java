@@ -17,14 +17,14 @@ public class OutboxEventPublisher {
     private final Snowflake eventIdSnowflake = new Snowflake();
     private final ApplicationEventPublisher applicationEventPublisher;
 
-    public void publish(EventType eventType, EventPayload eventPayload, Long documentId) {
+    public void publish(EventType eventType, EventPayload eventPayload, Long roomId) {
         Outbox outbox = Outbox.create(
                 outBoxIdSnowflake.nextId(),
                 eventType,
                 Event.createEvent(
                         eventIdSnowflake.nextId(), eventType, eventPayload
                 ).toJson(),
-                documentId
+                roomId
         );
         OutboxEvent outboxEvent = OutboxEvent.createOutboxEventByOutbox(outbox);
         applicationEventPublisher.publishEvent(outboxEvent);
