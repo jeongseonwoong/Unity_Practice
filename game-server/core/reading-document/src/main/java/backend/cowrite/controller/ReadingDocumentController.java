@@ -1,7 +1,7 @@
 package backend.cowrite.controller;
 
-import backend.cowrite.common.event.payload.DocumentEventPayload;
-import backend.cowrite.publisher.DocumentUpdatePublisher;
+import backend.cowrite.common.event.payload.MoveEventPayload;
+import backend.cowrite.publisher.MoveUpdatePublisher;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.messaging.handler.annotation.DestinationVariable;
@@ -14,12 +14,11 @@ import org.springframework.stereotype.Controller;
 @Slf4j
 public class ReadingDocumentController {
 
-    private final DocumentUpdatePublisher documentUpdatePublisher;
+    private final MoveUpdatePublisher documentUpdatePublisher;
 
     @MessageMapping("/{documentId}")
-    public void editDocument(@DestinationVariable Long documentId, @Payload DocumentEventPayload updateEventPayload) {
-        log.info("[ReadingDocumentController] documentId = {}, updateEventPayloadVersion = {}", documentId, updateEventPayload.getVersion());
-        documentUpdatePublisher.updateDocument(documentId, updateEventPayload);
+    public void editDocument(@DestinationVariable Long documentId, @Payload MoveEventPayload moveEventPayload) {
+        documentUpdatePublisher.updateDocument(documentId, moveEventPayload);
     }
 
 }

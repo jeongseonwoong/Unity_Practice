@@ -1,0 +1,9 @@
+<component name="libraryTable">
+  <library name="snowflake-plain1">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/game-server/global/snowflake/build/libs/snowflake-plain.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>

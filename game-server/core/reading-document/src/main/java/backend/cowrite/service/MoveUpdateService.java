@@ -13,7 +13,7 @@ import java.util.List;
 @Service
 @RequiredArgsConstructor
 @Slf4j
-public class DocumentUpdateService {
+public class MoveUpdateService {
     private final List<EventHandler> eventHandlers;
 
     public EditedResult handleEvent(Long documentId, Event<EventPayload> event) {

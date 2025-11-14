@@ -1,0 +1,10 @@
+<component name="libraryTable">
+  <library name="libs5">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/game-server/global/data-serializer/build/libs/data-serializer-plain.jar!/" />
+      <root url="jar://$PROJECT_DIR$/game-server/global/data-serializer/build/libs/snowflake-plain.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>

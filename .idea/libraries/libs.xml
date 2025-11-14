@@ -1,0 +1,10 @@
+<component name="libraryTable">
+  <library name="libs">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/game-server/global/outbox-message-relay/build/libs/outbox-message-relay-plain.jar!/" />
+      <root url="jar://$PROJECT_DIR$/game-server/global/outbox-message-relay/build/libs/snowflake-plain.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>
