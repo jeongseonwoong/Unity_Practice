@@ -6,6 +6,5 @@ import lombok.RequiredArgsConstructor;
 @Getter
 @RequiredArgsConstructor
 public enum OperationType {
-    DELETE,
-    INSERT
+    MOVE
 }
