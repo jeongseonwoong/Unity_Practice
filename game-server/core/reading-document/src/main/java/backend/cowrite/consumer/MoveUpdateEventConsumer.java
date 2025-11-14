@@ -18,7 +18,6 @@ import static backend.cowrite.config.WebsocketConfig.ClientSubscribeRoute;
 @Slf4j
 @RequiredArgsConstructor
 public class MoveUpdateEventConsumer {
-    private final MoveUpdateService moveUpdateService;
     private final SimpMessagingTemplate messagingTemplate;
 
 
@@ -33,7 +32,6 @@ public class MoveUpdateEventConsumer {
 
         Event<EventPayload> event = Event.fromJson(outboxEvent);
         if (event != null) {
-            moveUpdateService.handleEvent(Long.valueOf(outboxRoomId), event);
             String destination = clientSubscribeRoute(outboxRoomId);
             messagingTemplate.convertAndSend(destination, outboxEvent);
         }
