@@ -10,8 +10,7 @@ using UnityEngine.InputSystem;
 namespace Platformer.Mechanics
 {
     /// <summary>
-    /// This is the main class used to implement control of the player.
-    /// It is a superset of the AnimationController class, but is inlined to allow for any kind of customisation.
+    /// Player1 전용 컨트롤러 (화살표 키로 조작)
     /// </summary>
     public class PlayerController : KinematicObject
     {
@@ -41,8 +40,8 @@ namespace Platformer.Mechanics
         internal Animator animator;
         readonly PlatformerModel model = Simulation.GetModel<PlatformerModel>();
 
-        private InputAction m_MoveAction;
-        private InputAction m_JumpAction;
+        // 🔹 새 Input System 키보드
+        private Keyboard keyboard;
 
         public Bounds Bounds => collider2d.bounds;
 
@@ -54,21 +53,35 @@ namespace Platformer.Mechanics
             spriteRenderer = GetComponent<SpriteRenderer>();
             animator = GetComponent<Animator>();
 
-            m_MoveAction = InputSystem.actions.FindAction("Player/Move");
-            m_JumpAction = InputSystem.actions.FindAction("Player/Jump");
-            
-            m_MoveAction.Enable();
-            m_JumpAction.Enable();
+            // 🔹 키보드 레퍼런스
+            keyboard = Keyboard.current;
         }
 
         protected override void Update()
         {
+            if (keyboard == null)
+            {
+                base.Update();
+                return;
+            }
+
             if (controlEnabled)
             {
-                move.x = m_MoveAction.ReadValue<Vector2>().x;
-                if (jumpState == JumpState.Grounded && m_JumpAction.WasPressedThisFrame())
+                float x = 0f;
+
+                // 🔹 Player1: 화살표 좌우
+                if (keyboard.leftArrowKey.isPressed) x -= 1f;
+                if (keyboard.rightArrowKey.isPressed) x += 1f;
+
+                move.x = x;
+
+                // 🔹 Player1: 위쪽 화살표로 점프
+                if (jumpState == JumpState.Grounded &&
+                    keyboard.upArrowKey.wasPressedThisFrame)
+                {
                     jumpState = JumpState.PrepareToJump;
-                else if (m_JumpAction.WasReleasedThisFrame())
+                }
+                else if (keyboard.upArrowKey.wasReleasedThisFrame)
                 {
                     stopJump = true;
                     Schedule<PlayerStopJump>().player = this;
@@ -78,6 +91,7 @@ namespace Platformer.Mechanics
             {
                 move.x = 0;
             }
+
             UpdateJumpState();
             base.Update();
         }

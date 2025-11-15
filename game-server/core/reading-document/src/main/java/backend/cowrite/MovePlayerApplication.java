@@ -4,6 +4,6 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class ReadingDocumentApplication {
-    public static void main(String[] args) {SpringApplication.run(ReadingDocumentApplication.class, args);}
+public class MovePlayerApplication {
+    public static void main(String[] args) {SpringApplication.run(MovePlayerApplication.class, args);}
 }
